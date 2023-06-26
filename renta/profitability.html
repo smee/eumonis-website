@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+	<title>Rentabilitätsvergleich von Solarinstallationen</title>
+	
+	<link type="text/css" rel="stylesheet" href="../js/TangleKit/TangleKit.css">
+	<link type="text/css" rel="stylesheet" href="../css/bootstrap.css">
+	<link type="text/css" rel="stylesheet" href="../css/stylecustom.css">
+
+	<script type="text/javascript" src="../js/Tangle.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/mootools.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/sprintf.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/BVTouchable.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/TangleKit.js"></script>
+	<script type="text/javascript" src="../js/Tanglekit/gridlover.tanglekit.js"></script>
+	
+	<script type="text/javascript" src="../js/jquery-min.js"></script>
+	<script type="text/javascript" src="../js/jquery.flot-min.js"></script>
+	<script type="text/javascript" src="../js/jquery.flot.axislabels.js"></script>
+
+	<script type="text/javascript" src="profitability.js"></script>
+
+</head>
+
+<body onload="profitability.setUpTangle();">
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="http://rz.eumonis.org">EUMONIS</a>
+
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+	<div class="container">
+		<div class="content">
+		    <div class="hero-unit hero-unit-custom">
+			  <h1>Rentabilitätsvergleich</h1>
+			  <p>Vergleich der Rentabilität von fest installierten mit nachgeführten Solar-Anlagen</p>
+			</div>
+			
+			<div class="row">
+				<div class="span8">
+					<div id="chart" style="width:475px;height:500px;"></div>
+				</div>
+				<div class="span8">
+					<table class="zebra-striped tableCustom" id="inputValues">
+						<colgroup>
+							<col width="40%"/>
+							<col width="20%"/>
+							<col width="20%"/>
+							<col width="20%"/>
+						</colgroup>
+						
+						<tr>
+							<th></th>							
+							<th><center style="color: rgb(237,194,64);">Fix</center></th>
+							<th><center style="color: rgb(175,216,248);">Fix groß</center></th>
+							<th><center style="color: rgb(203,75,75);">Tracker</center></th>
+						</tr>
+					
+						<tr>
+							<td colspan="4"><b>Eingaben</b></td>
+						</tr>
+						<tr>
+							<td title="Installierte Gesamtleistung der PV-Anlage in Watt">Installierte Leistung</td>
+							<td colspan="3">
+								<span data-var="installedKW" class="TKNumberField fakeCenter"></span>
+								<span data-var="installedKW" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="1000" data-format="%.2f" data-step="0.5">kW</span>
+							</td>
+						</tr>
+						<tr>
+							<td title="Geschätzter erzielbarer Gesamtertrag pro installiertem Kilowatt Leistung">Ertrag pro Jahr</td>
+							<td colspan="3">
+								<span style="display: none" data-var="gainInKWH" class="TKAdjustableNumber" data-min="0" data-max="2000" data-format="%.2f" data-step="50">kWh/kWp</span>
+								<center>
+								<select id="LocationSelection" style="width: 120px;" onchange="profitability.updateGain(this.options[this.selectedIndex].value);">
+									<option>Flensburg</option>
+									<option>Karlsruhe</option>
+									<option>Oberstdorf</option>
+									<option>Mojave-Wüste</option>
+								</select>
+								</center>
+							</td>
+						</tr>
+						<tr>
+							<td title="Kosten für pro Watt PV-Modul">Modulkosten je installiertes Watt</td>
+							<td colspan="3">
+								<span data-var="modulePricePerW" class="TKNumberField fakeCenter"></span>
+								<span data-var="modulePricePerW" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="5" data-format="%.2f" data-step="0.01">€</span>
+							</td>
+						</tr>
+						<tr>
+							<td title="Sonstige Kosten (Aufbau, Verkabelung, Wechselrichter, Lohnkosten, Tracker, etc.)">Installationskosten je Watt</td>
+							<td colspan="2">
+								<center>
+									<span data-var="fixedCostPerW" class="TKNumberField"></span>
+									<span data-var="fixedCostPerW" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="10" data-format="%.2f" data-step="0.01">€</span>
+								</center>
+							</td>
+							<td>
+								<center>
+									<span data-var="trackerCostPerW" class="TKNumberField"></span>
+									<span data-var="trackerCostPerW" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="10" data-format="%.2f" data-step="0.01">€</span>
+								</center>
+							</td>
+						</tr>
+						<tr>
+							<td title="Garantierte Einspeisung">Einspeisevergütung je kWh</td>
+							<td colspan="3">
+								<span data-var="compensationPerKWH" class="TKNumberField fakeCenter"></span>
+								<span data-var="compensationPerKWH" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="2" data-format="%.2f" data-step="0.01">€</span>
+							</td>
+						</tr>
+						<tr>
+							<td title="Geschätzter erzielbahrer Mehrertrag durch Tracker gegenüber einer fixen Installation">Mehrertrag durch Tracker</td>
+							<td colspan="2"></td>
+							<td>
+								<center>
+									<span data-var="trackerAddedGain" class="TKNumberField"></span>
+									<span data-var="trackerAddedGain" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="100" data-format="%.2f" data-step="0.50">%</span>
+								</center>
+							</td>
+						</tr>
+						<tr>
+							<td title="Geschätzte laufende Betriebskosten pro Jahr in Prozent der initialen Kosten">Betriebskosten</td>
+							<td colspan="2">
+								<center>
+									<span data-var="fixedMaintenanceCost" class="TKNumberField"></span>
+									<span data-var="fixedMaintenanceCost" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="100" data-format="%.2f" data-step="0.05">%</span>
+								</center>
+							</td>
+							<td>
+								<center>
+									<span data-var="trackerMaintenanceCost" class="TKNumberField"></span>
+									<span data-var="trackerMaintenanceCost" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="0" data-max="100" data-format="%.2f" data-step="0.05">%</span>
+								</center>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="4"><b>Berechnungen</b></td>
+						</tr>
+						
+						<tr>
+							<td title="Gesamtkosten für Einkauf und Aufbau der PV-Anlage">Initiale Kosten für System</td>
+							<td colspan="2"><center><span data-var="costFixed" data-format="localizedFloat"> €</span></center></td>
+							<td><center><span data-var="costTracker" data-format="localizedFloat"> €</span></center></td>
+						</tr>
+						<tr>
+							<td title="Prognostizierter Ertrag pro Jahr">Ertrag pro Jahr</td>
+							<td><center><span data-var="gainPerYearFixed" data-format="localizedFloat"> kWh</span></center></td>
+							<td></td>
+							<td><center><span data-var="gainPerYearTracker" data-format="localizedFloat"> kWh</span></center></td>
+						</tr>
+						<tr>
+							<td title="Erzielbahrer Mehrertrag durch Nachführung/größere Fläche">Mehrertrag pro Jahr</td>
+							<td></td>
+							<td></td>
+							<td><center><span data-var="trackerAdditionalGain" data-format="localizedFloat"> kWh</span></center></td>
+						</tr>
+						<tr>
+							<td title="Prognostizierter Profit (Einspeisevergütung - laufende Betriebskosten)">Profit pro Jahr</td>
+							<td><center><span data-var="profitPerYearFixed" data-format="localizedFloat"> €</span></center></td>
+							<td><center><span data-var="profitPerYearFixedLarge" data-format="localizedFloat"> €</span></center></td>
+							<td><center><span data-var="profitPerYearTracker" data-format="localizedFloat"> €</span></td>
+						</tr>
+						<tr>
+							<td title="Break Even">Rentabilität nach</td>
+							<td><center><span id="firstProfitFixed"></span> Jahren</center></td>
+							<td><center><span id="firstProfitFixedLarge"></span> Jahren</center></td>
+							<td><center><span id="firstProfitTracker"></span> Jahren</center></td>
+						</tr>
+						
+						<tr>
+							<td title="Wählen Sie bitte einen geeigneten Zeitraum">Darstellungszeitraum</td>
+							<td colspan="3">
+								<span data-var="timeSpan" class="TKNumberField fakeCenter"></span>
+								<span data-var="timeSpan" class="TKAdjustableNumber noNumber TKAdjustableNumberCustom" data-min="2" data-max="100"> Jahre</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<center>
+									<b>Schnittunkt
+										<span style="color: rgb(203,75,75);">Tracker</span>-System / 
+										<span style="color: rgb(237,194,64);">Fix</span>-System: <span id="breakEvenFixedAndTracker" />
+									</b>
+								</center>						
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span1">&nbsp;</div>
+				<div class="span15">
+					<h4>Erläuterungen</h4>
+					Dieses Werkzeug erlaubt den Vergleich der Rentabilität zwischen PV-Anlagen in drei Szenarien: 
+					<ul>
+						<li>feste Installation</li>
+						<li>Installation mit Sonnennachführung (ein-/zweiachsig)</li>
+						<li>feste Installation mit größerer Fläche (proportional zum Mehrertrag durch Nachführung)</li>
+					</ul>
+					Sie können wahlweise Werte direkt in die Textfelder eingeben oder aber mit Hilfe der Maus durch Anklicken und Ziehen 
+					der Einheiten hinter den Textfeldern Werte verändern.
+				</div>
+			</div
+		</div>
+		
+		<footer>
+			<div class="row">
+			  <div class="span4">
+				<p>© EUMONIS-Konsortium 2012</p>
+			  </div>
+
+			  <div class="span9">
+				<p>Das Projekt "EUMONIS" wird gefördert durch das
+				Bundesministerium für Bildung und Forschung (BMBF) -
+				Förderkennzeichen 01IS10033, Laufzeit 01.07.2010 bis
+				30.06.2014.</p>
+			  </div>
+
+			  <div class="span3">
+				<a href="http://www.bmbf.de/"><img class="thumbnail" src=
+				"../images/bmbf-ohne-rand.gif" alt=
+				"gefördert durch das Bundesministerium für Bildung und Forschung"
+				width="150ptx"></a>
+			  </div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

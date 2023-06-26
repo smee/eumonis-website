@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+	<title>Sonneneinstrahlung</title>
+	
+	<link type="text/css" rel="stylesheet" href="../css/bootstrap.css">
+	<link type="text/css" rel="stylesheet" href="../css/stylecustom.css">
+	<link type="text/css" rel="stylesheet" href="../js/TangleKit/TangleKit.css">
+	
+	<script type="text/javascript" src="../js/Tangle.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/mootools.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/sprintf.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/BVTouchable.js"></script>
+	<script type="text/javascript" src="../js/TangleKit/TangleKit.js"></script>
+
+	<script type="text/javascript" src="../js/sun.js"></script>
+
+	<script type="text/javascript" src="../js/d3/d3.js"></script>
+	<script type="text/javascript" src="../js/d3/d3.time.js"></script>
+	<script type="text/javascript" src="sunlight.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="style.css">
+	<link type="text/css" rel="stylesheet" href="sunlight.css">
+</head>
+
+<body onload="sunlight.setUpTangle(); sunlight.setUpChart();">
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="http://rz.eumonis.org">EUMONIS</a>
+
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+	<div class="container">
+		<div class="content">
+		    <div class="hero-unit hero-unit-custom">
+			  <h1>Sonneneinstrahlung</h1>
+			  <p>Visualisierung der Leistung eines Solarmoduls</p>
+			</div>
+			
+			<div class="row">
+				<div class="span16">
+					<div class="left" id="chart"></div>
+					<div class="right input" id="example">
+								<p>
+									In der Grafik wird die an einem Tag erzeugte Leistung eines Solarmoduls dargestellt.
+									Hierbei sind die <font color="#FF0000">tatsächliche Leistung</font> und die <font color="#FFDD00">optimale Leistung</font> veranschaulicht. 
+								</p>
+								<div>
+									<b>Auswahl eines Ortes als Voreinstellung:</b><br/>
+									<ul>
+										<li><a class="btn" onclick="sunlight.setLocation('Leipzig');">Leipzig</a></li>
+										<li><a class="btn" onclick="sunlight.setLocation('Lissabon');">Lissabon</a></li>
+										<li><a class="btn" onclick="sunlight.setLocation('Khartoum');">Khartoum</a></li>
+									</ul>
+								</div>
+								<!-- sun position -->
+								<b>Auswahl der Parameter per Drag and Drop:</b><br />
+								Geographische Länge: 			<span data-var="lon" class="TKAdjustableNumber" data-min="-180" data-max="180" data-format="%d" data-step="1"></span>&deg;<br/>
+								Geographische Breite: 			<span data-var="lat" class="TKAdjustableNumber" data-min="-90" data-max="90" data-format="%d" data-step="1"></span>&deg;<br/>
+								Höhe über Meeresspiegel: 			<span data-var="height" class="TKAdjustableNumber" data-min="0" data-max="5" data-format="%.1f" data-step="0.1"></span>km<br/>
+								Tag des Jahres: 	<span data-var="day_of_year" class="TKAdjustableNumber" data-min="1" data-max="365" data-format="%d" data-step="1"></span><br/>
+								Stunde: 			<span data-var="hour" class="TKAdjustableNumber" data-min="0" data-max="23" data-format="%d" data-step="1"></span><br/>
+								Minute: 			<span data-var="minute" class="TKAdjustableNumber" data-min="0" data-max="59" data-format="%d" data-step="1"></span><br/>
+								Abweichung von GMT: <span data-var="delta_gmt" class="TKAdjustableNumber" data-min="-12" data-max="12" data-format="%d" data-step="1"></span>h<br/>
+								<!-- intensity on a pv panel --><br/>
+								Modulausrichtung: 	<span data-var="module_azimuth" class="TKAdjustableNumber" data-min="0" data-max="360" data-format="%d" data-step="1"></span>&deg;<br/>
+								Modulneigung: 		<span data-var="module_tilt" class="TKAdjustableNumber" data-min="0" data-max="90" data-format="%d" data-step="1"></span>&deg<br/><br/>
+					
+								<b>Sonnenstand:</b> <br/>
+								Deklinationswinkel der Sonne: 				<span data-var="sun_declination" data-format="%.2f"></span>&deg;<br/>
+								Azimuth der Sonne: 							<span data-var="sun_azimuth" data-format="%.2f"></span>&deg;<br/>
+								H&ouml;henwinkel der Sonne: 				<span data-var="sun_elevation" data-format="%.2f"></span>&deg;<br/>
+								Sonnenaufgang: 								<span data-var="sunrise" data-format="%s"></span><br/>
+								Sonnenuntergang: 							<span data-var="sunset" data-format="%s"></span><br/><br/>
+								<b>Ertrag:</b> <br/>
+								Luftmasse: 									<span data-var="air_mass" data-format="%.2f"></span><br/>
+								Einstrahlung ideal: 						<span data-var="s_incident" data-format="%.2f"></span>kW/m&sup2;<br/>
+								Einstrahlung real auf 1m&sup2; PV-Modul: 	<span data-var="s_module" data-format="%.2f"></span>kW<br/><br/>
+					
+								<!--
+								Debug:<br/>
+								EOT: 	<span data-var="eot" data-format="%.2f"></span><br/>
+								HRA: 	<span data-var="hra" data-format="%.2f"></span><br/>		 
+								LST: 	<span data-var="lst" data-format="%.2f"></span><br/>
+								LSTM: 	<span data-var="lstm" data-format="%.2f"></span><br/>		   
+								TC: 	<span data-var="tc" data-format="%.2f"></span><br/><br/>
+								-->
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<footer>
+			<div class="row">
+			  <div class="span4">
+				<p>&#169; EUMONIS-Konsortium 2011</p>
+			  </div>
+
+			  <div class="span9">
+				<p>Das Projekt "EUMONIS" wird gef&#246;rdert durch das
+				Bundesministerium f&#252;r Bildung und Forschung (BMBF) -
+				F&#246;rderkennzeichen 01IS10033, Laufzeit 01.07.2010 bis
+				30.06.2014.</p>
+			  </div>
+
+			  <div class="span3">
+				<a href="http://www.bmbf.de/"><img class="thumbnail" src=
+				"../images/bmbf-ohne-rand.gif" alt=
+				"gef&#246;rdert durch das Bundesministerium f&#252;r Bildung und Forschung"
+				width="150ptx"></a>
+			  </div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

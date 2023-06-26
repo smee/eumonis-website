@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>
+      MBS_SE_PV
+    </title>
+    <link href="MBS_SE_PV_files/css/bootstrap.min.css" rel=
+    "stylesheet" type="text/css">
+    <link href="MBS_SE_PV_files/css/showLoading.css" rel=
+    "stylesheet" type="text/css">
+    <link href="MBS_SE_PV_files/css/customizations.css"
+    rel="stylesheet" type="text/css">
+    <script src=
+    "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type=
+    "text/javascript">
+</script>
+    <script type="text/javascript">
+//<![CDATA[
+    window.jQuery || document.write('<script src="MBS_SE_PV_files/js/jquery.min.js"><\/script>')
+    //]]>
+    </script>
+    <script src="MBS_SE_PV_files/js/jquery.cookie.js" type=
+    "text/javascript">
+</script>
+    <script src="MBS_SE_PV_files/js/jquery.blockUI.js"
+    type="text/javascript">
+</script>
+    <script src="MBS_SE_PV_files/js/common.js" type=
+    "text/javascript">
+</script>
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <link href="MBS_SE_PV_files/css/colorbrewer.css" rel=
+    "stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="http://labs.eumonis.org">EUMONIS-Lab</a>
+          <ul class="nav">
+            <li>
+              <a href="index.html">Übersicht</a>
+            </li>
+            <li>
+              <a href="details.html">Allgemeines</a>
+            </li>
+            <li>
+              <a href="structure.html">Komponenten</a>
+            </li>
+            <li class="active">
+              <a class="btn-info" href=
+              "status.html">Zustand</a>
+            </li>
+            <li>
+              <a href="series.html">Messwerte</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span6">
+          <h3>
+            Anlagendaten
+          </h3>
+          <table class="table table-striped table-condensed">
+            <tr>
+              <th class="span4">
+                Erster Messwert am
+              </th>
+              <td>
+                07.04.2008
+              </td>
+            </tr>
+            <tr>
+              <th class="span4">
+                Letzter Messwert am
+              </th>
+              <td>
+                24.04.2013
+              </td>
+            </tr>
+            <tr>
+              <th class="span4">
+                Installierte Leistung in Wp
+              </th>
+              <td>
+                2,15MWh
+              </td>
+            </tr>
+            <tr>
+              <th class="span4">
+                Anzahl installierter Wechselrichter
+              </th>
+              <td>
+                2
+              </td>
+            </tr>
+          </table>
+          <h3>
+            Betreiber
+          </h3>
+          <table class="table table-striped table-condensed"></table><a class=
+          "btn btn-large btn-success" href=
+          "/series.html">Messwerte</a>
+          <h3>
+            Vorhandene Daten pro Tag
+          </h3>
+          <div class="span9" id="calendar">
+            <div class="controls">
+              <select id="calendar-data" name="calendar-data">
+                <option value="MBS_SE_PV_files/json/missing.csv">
+                  Fehlende Daten
+                </option>
+                <option value=
+                "MBS_SE_PV_files/json/maintainance-dates.csv">
+                  Wartungsarbeiten
+                </option>
+              </select><select id="color-scale" name="color-scale">
+                <option value="RdYlGn">
+                  Rot-Gelb-Grün
+                </option>
+                <option value="GnYlRd">
+                  Grün-Gelb-Rot
+                </option>
+                <option value="YlOrBr">
+                  Gelb-Orange-Braun
+                </option>
+                <option value="Blues">
+                  Blau
+                </option>
+                <option value="Greens">
+                  Grün
+                </option>
+                <option value="Oranges">
+                  Orange
+                </option>
+                <option value="Greys">
+                  Grau
+                </option>
+                <option value="Spectral">
+                  ???
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="span6">
+          <h3>
+            ErtrÃ¤ge im letzten Jahr
+          </h3>
+          <h4>
+            Gesamtertrag pro Tag
+          </h4>
+          <div class="loading-bg" style="width:600px;height:300px;">
+            <img height="300" src=
+            "MBS_SE_PV_files/img/gain-chart-1.png"
+            width="600">
+          </div>
+          <h4>
+            Gesamtertrag pro Woche
+          </h4>
+          <div class="loading-bg" style="width:600px;height:300px;">
+            <img height="300" src=
+            "MBS_SE_PV_files/img/gain-chart-2.png"
+            width="600">
+          </div>
+          <h4>
+            Gesamtertrag pro Monat
+          </h4>
+          <div class="loading-bg" style="width:600px;height:300px;">
+            <img height="300" src=
+            "MBS_SE_PV_files/img/gain-chart-3.png"
+            width="600">
+          </div>
+        </div><script src=
+        "MBS_SE_PV_files/js/chart/d3.v2.min.js" type=
+        "text/javascript">
+</script><script type="text/javascript">
+//<![CDATA[
+        (function (baseUrl, selector, cbSelector, colorSelector, linkTemplate){
+
+                var margin = {top: 10, right: 10, bottom: 10, left: 10},
+            width = 550 - margin.right - margin.left, // width
+            height = 70 - margin.top - margin.bottom, // height
+            cellSize = 9; // cell size
+
+        var day = function(d){ return (d.getDay()+6)%7; },
+            week = d3.time.format("%W"),
+            percent = d3.format(".1%"),
+            format = d3.time.format("%d.%m.%Y");
+
+        //var svg = d3.select(selector).selectAll("svg");
+
+        function draw(firstYear, lastYear){             
+                var svgs = d3.select(selector).selectAll("svg").data(d3.range(firstYear, lastYear+1),function(d,i) {return ""+d;});             
+                
+                svgs.exit().remove();
+                var colorscheme = cs.val();
+                var svgs=svgs.enter().append("svg")
+                    .attr("width", width + margin.right + margin.left)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .attr("class", colorscheme)
+                  .append("g")
+                    .attr("transform", "translate(" + (margin.left + (width - cellSize * 53) / 2) + "," + (margin.top + (height - cellSize * 7) / 2) + ")");
+                
+                svgs.append("text")
+                    .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
+                    .attr("text-anchor", "middle")
+                    .text(String);
+
+                var rects = svgs.selectAll("rect.day")
+                                .data(function(d) { 
+                                        return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); 
+                                        });
+                var newrect = rects.enter()
+                  .append("rect")
+                    .attr("class", "day")
+                    .attr("width", cellSize)
+                    .attr("height", cellSize)
+                    .attr("x", function(d) { return week(d) * cellSize; })
+                    .attr("y", function(d) { return day(d) * cellSize; })
+                    .attr("date",function(d){ return format(d); })
+                    .datum(format);
+
+                newrect.append("title")
+                    .text(function(d) { return d; });
+
+                svgs.selectAll("path.month")
+                    .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+                  .enter().append("path")
+                    .attr("class", "month")
+                    .attr("d", monthPath);              
+                
+                d3.select(selector).selectAll("svg").sort();            
+        }
+
+        function monthPath(t0) {
+          var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+              d0 = +day(t0), w0 = +week(t0),
+              d1 = +day(t1), w1 = +week(t1);
+          return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+              + "H" + w0 * cellSize + "V" + 7 * cellSize
+              + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+              + "H" + (w1 + 1) * cellSize + "V" + 0
+              + "H" + (w0 + 1) * cellSize + "Z";
+        }
+        function loadAndRender(dataUrl){
+                d3.csv(dataUrl, function(csv) {
+                  var data = d3.nest()
+                      .key(function(d) { return d.date; })
+                          .rollup(function(d){ return parseInt(d[0].num); })
+                      .map(csv);
+                  var allDates = d3.keys(data);
+                  var minDate = allDates[0];
+                  var maxDate=allDates[allDates.length - 1];
+                  
+                  draw(format.parse(minDate).getFullYear(),format.parse(maxDate).getFullYear());
+                  
+                  var minmax = d3.extent(d3.values(data));
+                  if(minmax[0]==minmax[1])
+                          minmax[0]=0;
+                  minmax[1]=Math.min(minmax[1], 381600);//XXX fix double data in feb. 2013, currently there should be no more than 1440*265 data points per day
+                  var color = d3.scale.quantize()
+                    .domain(minmax)
+                    .range(d3.range(9));                  
+                  
+                  d3.select(selector)
+                    .selectAll("svg")
+                    .selectAll("rect.day")//.filter(function(d) { return d in data; })
+                       .attr("class", function(d) { return "day q"+color(data[d])+"-9"; })
+                       .select("title")
+                          .text(function(d) { 
+                                  if(data[d]) return d + ": " + percent(data[d]/minmax[1]);
+                                  else return "";});
+                });
+        }
+         $(document).on('click','svg', function(e){
+           var elem = e.target;
+           if(elem.nodeName='rect' && elem.hasAttribute('date')){
+                   var date = elem.getAttribute('date');
+                   window.location=linkTemplate+'?params={"startDate":"'+date+'","endDate":"'+date+'"}';
+           };
+         });
+         var cb=$(cbSelector);
+         loadAndRender(cb.val());
+         cb.change(function(){
+                 loadAndRender(cb.val());
+         });
+         var cs=$(colorSelector);
+         cs.change(function(){
+                 d3.select(selector).selectAll("svg").attr("class",cs.val());
+         });
+
+
+        })("", "#calendar", "select#calendar-data", "select#color-scale", "series.html")
+        //]]>
+        </script>
+      </div>
+      <div class="span2">
+        <p>
+          © EUMONIS-Konsortium 2013
+        </p>
+      </div>
+      <div class="span8">
+        <p>
+          Das Projekt "EUMONIS" wird gefördert durch das Bundesministerium für
+          Bildung und Forschung (BMBF) - Förderkennzeichen 01IS10033, Laufzeit
+          01.07.2010 bis 30.06.2014.
+        </p>
+      </div>
+      <div class="span2">
+        <a href="http://www.bmbf.de/"><img alt=
+        "gef&amp;#246;rdert durch das Bundesministerium f&amp;#252;r Bildung und Forschung"
+        src="MBS_SE_PV_files/img/bmbf-ohne-rand.gif" width="150px"></a>
+      </div>
+    </div>
+  </body>
+</html>

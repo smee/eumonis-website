@@ -1,0 +1,39 @@
+path{
+	fill: none;
+}
+
+.incidentGraph{
+	stroke: rgb(255, 221, 0);
+	stroke-width: 2px;
+}
+
+.moduleGraph{
+	stroke: rgb(255, 0, 0);
+	stroke-width: 2px;
+}
+
+.axis{
+	stroke: rgb(64, 64, 64);
+	stroke-width: 2px;
+}
+
+.axis text{
+	stroke: none;
+	fill: rgb(64, 64, 64);
+}
+
+.label{
+	stroke: none;
+	fill: rgb(64, 64, 64);
+	font-size: 130%;
+}
+
+.background{
+	fill: rgb(255, 255, 255);
+}
+
+.ruler{
+	fill:none;
+	stroke: rgb(0, 0, 255);
+	stroke-width: 1px;
+}

@@ -1,0 +1,1146 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>
+      MBS_SE_PV
+    </title>
+    <link href="MBS_SE_PV_files/css/bootstrap.min.css" rel=
+    "stylesheet" type="text/css">
+    <link href="MBS_SE_PV_files/css/showLoading.css" rel=
+    "stylesheet" type="text/css">
+    <link href="MBS_SE_PV_files/css/customizations.css"
+    rel="stylesheet" type="text/css">
+    <script src=
+    "http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type=
+    "text/javascript">
+</script>
+    <script type="text/javascript">
+//<![CDATA[
+    window.jQuery || document.write('<script src="MBS_SE_PV_files/js/jquery.min.js"><\/script>')
+    //]]>
+    </script>
+    <script src="MBS_SE_PV_files/js/jquery.cookie.js" type=
+    "text/javascript">
+</script>
+    <script src="MBS_SE_PV_files/js/jquery.blockUI.js"
+    type="text/javascript">
+</script>
+    <script src="MBS_SE_PV_files/js/common.js" type=
+    "text/javascript">
+</script>
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <link href=
+    "MBS_SE_PV_files/css/dynatree/ui.dynatree.css" rel=
+    "stylesheet" type="text/css">
+    <link href="MBS_SE_PV_files/css/datepicker.css" rel=
+    "stylesheet" type="text/css">
+    <link href="MBS_SE_PV_files/css/typeahead.css" rel=
+    "stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="http://labs.eumonis.org">EUMONIS-Lab</a>
+          <ul class="nav">
+            <li>
+              <a href="index.html">Übersicht</a>
+            </li>
+            <li>
+              <a href="details.html">Allgemeines</a>
+            </li>
+            <li>
+              <a href="structure.html">Komponenten</a>
+            </li>
+            <li class="active">
+              <a class="btn-info" href=
+              "status.html">Zustand</a>
+            </li>
+            <li>
+              <a href="series.html">Messwerte</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <form class="form-vertical well">
+            <div>
+              <h4>
+                Datum
+              </h4>
+              <div class="input-prepend">
+                <span class="add-on">von:</span> <input class="input-small" id=
+                "startDate" name="startDate" placeholder="Startdatum" type=
+                "text" value="24.04.2013">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">bis:</span> <input class="input-small" id=
+                "endDate" name="endDate" placeholder="Enddatum" type="text"
+                value="24.04.2013">
+              </div>
+              <div>
+                <a class="btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(-1,0,0,0)">&lt; Tag</a><a class=
+                "btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(-7,0,0)">&lt; Woche</a><a class=
+                "btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(0,-1,0)">&lt; Monat</a><a class=
+                "btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(0,0,-1)">&lt; Jahr</a>
+              </div>
+              <div>
+                <a class="btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(1,0,0,0)">Tag &gt;</a><a class=
+                "btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(7,0,0)">Woche &gt;</a><a class=
+                "btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(0,1,0)">Monat &gt;</a><a class=
+                "btn btn-mini" href="#" onclick=
+                "DateSelector.shiftTime(0,0,1)">Jahr &gt;</a>
+              </div><label class="checkbox"><input checked id="rerender" name=
+              "rerender" type="checkbox" value="true">automatisch neu
+              zeichnen</label>
+            </div>
+            <div>
+              <h4>
+                Datenreihen
+              </h4>
+              <div id="series-tree">
+                <ul style="display:none;">
+                  <li class="folder">nach Bauteil
+                    <ul style="display:none;">
+                      <li class="folder">INVU2
+                        <ul style="display:none;">
+                          <li class="folder">MMDC
+                            <ul style="display:none;">
+                              <li class="folder">0
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/MMDC0.Watt.mag.f',select:false}">
+                                  DC power
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">1
+                                <ul style="display:none;">
+                                  <li class="folder">FIELD_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/FIELD_MMDC1.Vol.mag.f',select:false}">
+                                      DC voltage field
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC1.Amp.mag.f',select:false}">
+                                  INV1 DC current
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC1.Watt.mag.f',select:false}">
+                                  INV1 DC power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC1.Vol.mag.f',select:false}">
+                                  INV1 DC voltage
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC1.Ris.mag.f',select:false}">
+                                  INV1 R-iso
+                                  </li>
+                                  <li class="folder">NIGHT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_MMDC1.Ris.mag.f',select:false}">
+                                      INV1 R-iso night
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING1_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING1_MMDC1.Ris.mag.f',select:false}">
+                                      INV1 R-iso night DC1
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING2_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING2_MMDC1.Ris.mag.f',select:false}">
+                                      INV1 R-iso night DC2
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING3_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING3_MMDC1.Ris.mag.f',select:false}">
+                                      INV1 R-iso night DC3
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING4_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING4_MMDC1.Ris.mag.f',select:false}">
+                                      INV1 R-iso night DC4
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING1PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING1PERCENT_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current percent string1
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING1_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING1_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current string1
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING2PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING2PERCENT_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current percent string2
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING2_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING2_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current string2
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING3PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING3PERCENT_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current percent string3
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING3_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING3_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current string3
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING4PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING4PERCENT_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current percent string4
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING4_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING4_MMDC1.Amp.mag.f',select:false}">
+                                      INV1 DC current string4
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">2
+                                <ul style="display:none;">
+                                  <li class="folder">FIELD_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/FIELD_MMDC2.Vol.mag.f',select:false}">
+                                      DC voltage field
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC2.Amp.mag.f',select:false}">
+                                  INV2 DC current
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC2.Watt.mag.f',select:false}">
+                                  INV2 DC power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC2.Vol.mag.f',select:false}">
+                                  INV2 DC voltage
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMDC2.Ris.mag.f',select:false}">
+                                  INV2 R-iso
+                                  </li>
+                                  <li class="folder">NIGHT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_MMDC2.Ris.mag.f',select:false}">
+                                      INV2 R-iso night
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING1_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING1_MMDC2.Ris.mag.f',select:false}">
+                                      INV2 R-iso night DC1
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING2_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING2_MMDC2.Ris.mag.f',select:false}">
+                                      INV2 R-iso night DC2
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING3_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING3_MMDC2.Ris.mag.f',select:false}">
+                                      INV2 R-iso night DC3
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">NIGHT_STRING4_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/NIGHT_STRING4_MMDC2.Ris.mag.f',select:false}">
+                                      INV2 R-iso night DC4
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING1PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING1PERCENT_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current percent string1
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING1_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING1_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current string1
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING2PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING2PERCENT_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current percent string2
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING2_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING2_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current string2
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING3PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING3PERCENT_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current percent string3
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING3_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING3_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current string3
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING4PERCENT_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING4PERCENT_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current percent string4
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">STRING4_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/STRING4_MMDC2.Amp.mag.f',select:false}">
+                                      INV2 DC current string4
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="folder">MMET
+                            <ul style="display:none;">
+                              <li class="folder">1
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/MMET1.HorInsol.mag.f',select:false}">
+                                  Irradiation module tracker1
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMET1.EnvTmp.mag.f',select:false}">
+                                  Temperature module tracker1
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">2
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/MMET2.HorInsol.mag.f',select:false}">
+                                  Irradiation module tracker2
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMET2.EnvTmp.mag.f',select:false}">
+                                  Temperature module tracker2
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="folder">MMTR
+                            <ul style="display:none;">
+                              <li class="folder">0
+                                <ul style="display:none;">
+                                  <li class="folder">DAY_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/DAY_MMTR0.TotWh.actVal',select:false}">
+                                      Energy day
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">MONTH_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/MONTH_MMTR0.TotWh.actVal',select:false}">
+                                      Energy month
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">TOTAL_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/TOTAL_MMTR0.TotWh.actVal',select:false}">
+                                      Energy total
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">YEAR_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/YEAR_MMTR0.TotWh.actVal',select:false}">
+                                      Energy year
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">1
+                                <ul style="display:none;">
+                                  <li class="folder">DAY_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/DAY_MMTR1.TotWh.mag.f',select:false}">
+                                      INV1 energy day
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">MONTH_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/MONTH_MMTR1.TotWh.actVal',select:false}">
+                                      INV1 energy month
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">TOTAL_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/TOTAL_MMTR1.TotWh.actVal',select:false}">
+                                      INV1 energy total
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">YEAR_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/YEAR_MMTR1.TotWh.actVal',select:false}">
+                                      INV1 energy year
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">2
+                                <ul style="display:none;">
+                                  <li class="folder">DAY_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/DAY_MMTR2.TotWh.mag.f',select:false}">
+                                      INV2 energy day
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">MONTH_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/MONTH_MMTR2.TotWh.actVal',select:false}">
+                                      INV2 energy month
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">TOTAL_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/TOTAL_MMTR2.TotWh.actVal',select:false}">
+                                      INV2 energy total
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li class="folder">YEAR_
+                                    <ul style="display:none;">
+                                      <li data=
+                                      "{series:'INVU2/YEAR_MMTR2.TotWh.actVal',select:false}">
+                                      INV2 energy year
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="folder">MMXU
+                            <ul style="display:none;">
+                              <li class="folder">0
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/MMXU0.TotW.mag.f',select:false}">
+                                  AC active power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU0.TotVA.mag.f',select:false}">
+                                  AC apparent power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU0.TotVAr.mag.f',select:false}">
+                                  AC reactive power
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">1
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.TotW.mag.f',select:false}">
+                                  INV1 AC active power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.TotVA.mag.f',select:false}">
+                                  INV1 AC apparent power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.A.phsA.cVal',select:false}">
+                                  INV1 AC current L1
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.A.phsB.cVal',select:false}">
+                                  INV1 AC current L2
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.A.phsC.cVal',select:false}">
+                                  INV1 AC current L3
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.TotVAr.mag.f',select:false}">
+                                  INV1 AC reactive power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.PhV.phsA.cVal',select:false}">
+                                  INV1 AC voltage L1
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.PhV.phsB.cVal',select:false}">
+                                  INV1 AC voltage L2
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.PhV.phsC.cVal',select:false}">
+                                  INV1 AC voltage L3
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU1.Hz.mag.f',select:false}">
+                                  INV1 frequency
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">2
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.TotW.mag.f',select:false}">
+                                  INV2 AC active power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.TotVA.mag.f',select:false}">
+                                  INV2 AC apparent power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.A.phsA.cVal',select:false}">
+                                  INV2 AC current L1
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.A.phsB.cVal',select:false}">
+                                  INV2 AC current L2
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.A.phsC.cVal',select:false}">
+                                  INV2 AC current L3
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.TotVAr.mag.f',select:false}">
+                                  INV2 AC reactive power
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.PhV.phsA.cVal',select:false}">
+                                  INV2 AC voltage L1
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.PhV.phsB.cVal',select:false}">
+                                  INV2 AC voltage L2
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.PhV.phsC.cVal',select:false}">
+                                  INV2 AC voltage L3
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/MMXU2.Hz.mag.f',select:false}">
+                                  INV2 frequency
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="folder">ZINV
+                            <ul style="display:none;">
+                              <li class="folder">0
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/ZINV0.HeatSinkTmp.mag.f',select:false}">
+                                  Heat sink temperature maximum
+                                  </li>
+                                  <li data=
+                                  "{series:'INVU2/ZINV0.EnclTmp.mag.f',select:false}">
+                                  Temperature room
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">1
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/ZINV1.HeatSinkTmp.mag.f',select:false}">
+                                  INV1 heat sink temperature
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="folder">2
+                                <ul style="display:none;">
+                                  <li data=
+                                  "{series:'INVU2/ZINV2.HeatSinkTmp.mag.f',select:false}">
+                                  INV2 heat sink temperature
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="folder">TRU1
+                        <ul style="display:none;">
+                          <li class="folder">MMXU
+                            <ul style="display:none;">
+                              <li data=
+                              "{series:'TRU1/MMXU.A.phsA.cVal',select:false}">
+                              AC-current L1
+                              </li>
+                              <li data=
+                              "{series:'TRU1/MMXU.A.phsB.cVal',select:false}">
+                              AC-current L2
+                              </li>
+                              <li data=
+                              "{series:'TRU1/MMXU.A.phsC.cVal',select:false}">
+                              AC-current L3
+                              </li>
+                              <li data=
+                              "{series:'TRU1/MMXU.PhV.phsA.cVal',select:false}">
+                              AC-voltage L1
+                              </li>
+                              <li data=
+                              "{series:'TRU1/MMXU.PhV.phsB.cVal',select:false}">
+                              AC-voltage L2
+                              </li>
+                              <li data=
+                              "{series:'TRU1/MMXU.PhV.phsC.cVal',select:false}">
+                              AC-voltage L3
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="folder">TTMP
+                            <ul style="display:none;">
+                              <li data=
+                              "{series:'TRU1/TTMP.TmpSv.instMag',select:false}">
+                              temperature TRU1
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                     </ul>
+                  </li>
+                  </ul><script type="text/javascript">
+//<![CDATA[
+                $(document).ready(function() { 
+                $('#series-tree').dynatree({
+                checkbox:true,
+                selectMode: 3,          
+                persist: false,
+                minExpandLevel: 1})});
+                //]]>
+                </script>
+              </div>
+            </div>
+            <div>
+              <h4>
+                Art der Anzeige:
+              </h4>
+              <div class="controls">
+                <select id="visType" name="visType">
+                  <option selected value="dygraph.json">
+                    Interaktive Ansicht
+                  </option>
+                  <option value="chart.png">
+                    Statische Ansicht
+                  </option>
+                  <option value="heat-map.png">
+                    Heatmap
+                  </option>
+                  <option value="dygraph-ratios.json">
+                    Verhältnis
+                  </option>
+                  <option value="entropy.json">
+                    Entropieänderung
+                  </option>
+                  <option value="changepoints.png">
+                    Verhaltensänderung
+                  </option>
+                  <option value="discord.png">
+                    Ungewöhnlicher Tag
+                  </option>
+                  <option value="correlation.png">
+                    Korrelationen
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div id="changepoint-parameter" style="display:none">
+              <h4>
+                Weitere Parameter
+              </h4>
+              <div class="controls">
+                <label class="checkbox"><input id="rank" name="rank" type=
+                "checkbox" value="true">Rang statt Rohwerten
+                verwenden</label><label class="checkbox"><input id="zero" name=
+                "zero" type="checkbox" value="true">Nullwerte
+                löschen</label><label class="checkbox"><input id="negative"
+                name="negative" type="checkbox" value="true">Nur
+                Verschlechterungen anzeigen</label><label class=
+                "checkbox"><input checked id="maintenance" name="maintenance"
+                type="checkbox" value="true">Wartungstage ignorieren</label>
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">CI:</span> <input class="input-small" id=
+                "confidence" name="confidence" placeholder="p-Wert" type="text"
+                value="0.9999">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">lvl:</span> <input class="input-small" id=
+                "maxLevel" name="maxLevel" placeholder="Max. level" type="text"
+                value="2">
+              </div>
+            </div>
+            <div id="entropy-parameter" style="display:none">
+              <h4>
+                Weitere Parameter
+              </h4>
+              <div class="input-prepend">
+                <span class="add-on">min:</span> <input class="input-small" id=
+                "minHist" name="minHist" type="text" value="0.05">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">max:</span> <input class="input-small" id=
+                "maxHist" name="maxHist" type="text" value="2">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">bins:</span> <input class="input-small"
+                id="bins" name="bins" type="text" value="500">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">Tage:</span> <input class="input-small"
+                id="days" name="days" type="text" value="30">
+              </div>
+              <div class="controls">
+                <label class="checkbox"><input checked id="skipMissing" name=
+                "skipMissing" type="checkbox" value="true">Ignoriere
+                lückenhafte Tage</label>
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">Sensor:</span> <input class="input-large"
+                id="sensor" name="sensor" placeholder="Welche Messreihe?" type=
+                "text" value="">
+              </div>
+            </div><input id="highlightSeries" name="highlightSeries" type=
+            "hidden">
+            <div>
+              <h4>
+                Größe:
+              </h4><input class="input-mini" id="width" name="width" type=
+              "number" value="950"><span>X</span><input class="input-mini" id=
+              "height" name="height" type="number" value="600"><span>px</span>
+            </div><button class="btn-primary btn-large" id="render-chart">
+            Anzeigen</button>
+          </form>
+        </div>
+        <div class="span9">
+          <h2>
+            Chart
+          </h2>
+          <div id="current-chart">
+            Bitte wählen Sie links die zu visualisierenden Daten und ein
+            Zeitinterval aus.
+          </div>
+        </div><script src=
+        "MBS_SE_PV_files/js/jquery-ui.min.js" type=
+        "text/javascript">
+</script><script src=
+"MBS_SE_PV_files/js/jquery.dynatree.min.js" type=
+"text/javascript">
+</script><script src="MBS_SE_PV_files/js/datepicker.js"
+        type="text/javascript">
+</script><script src=
+"MBS_SE_PV_files/js/chart/dygraph-combined-dev.js"
+        type="text/javascript">
+</script><script src=
+"MBS_SE_PV_files/js/chart/dygraph-functions.js"
+        type="text/javascript">
+</script><script src="MBS_SE_PV_files/js/hogan-2.0.0.js"
+        type="text/javascript">
+</script><script src="MBS_SE_PV_files/js/typeahead.js"
+        type="text/javascript">
+</script><script type="text/javascript">
+//<![CDATA[
+        (function(DateSelector, $, dateField, formattedDate, minDate, maxDate, undefined) {
+        var df = $(dateField);
+        df.DatePicker({
+                format : 'd.m.Y',
+                date : formattedDate,
+                current : formattedDate,
+                calendars : 1,
+                onBeforeShow : function() {
+                        df.DatePickerSetDate(df.val(), true);
+                },
+                onChange : function(formatted, date) {
+                        df.val(formatted).DatePickerHide();
+                },
+                onRender : function(date) {
+                        return {
+                                disabled : date.valueOf() < minDate || date.valueOf() > maxDate,
+                                className : false
+                        }
+                }
+        });
+        // set calendar value from string after manual change.
+        $(dateField).change(function(){df.val($(this).val())});
+
+        })(window.DateSelector = window.DateSelector || {}, jQuery, "#startDate","24.04.2013",1207519260000, 1366754400000);
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        (function(DateSelector, $, dateField, formattedDate, minDate, maxDate, undefined) {
+        var df = $(dateField);
+        df.DatePicker({
+                format : 'd.m.Y',
+                date : formattedDate,
+                current : formattedDate,
+                calendars : 1,
+                onBeforeShow : function() {
+                        df.DatePickerSetDate(df.val(), true);
+                },
+                onChange : function(formatted, date) {
+                        df.val(formatted).DatePickerHide();
+                },
+                onRender : function(date) {
+                        return {
+                                disabled : date.valueOf() < minDate || date.valueOf() > maxDate,
+                                className : false
+                        }
+                }
+        });
+        // set calendar value from string after manual change.
+        $(dateField).change(function(){df.val($(this).val())});
+
+        })(window.DateSelector = window.DateSelector || {}, jQuery, "#endDate","24.04.2013",1207519260000, 1366754400000);
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        (function (Charting, $, baseUrl, plantId, undefined){
+        String.prototype.hashCode = function(){
+        // from http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+        var hash = 0, i, char;
+        if (this.length == 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            char = this.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash;
+        };
+        // hide loading indicator faster
+        $.blockUI.defaults.fadeOut = 0;
+        $.blockUI.defaults.fadeIn = 0;
+        $.blockUI.defaults.message = "<h1>Bitte warten, Daten werden geladen...<\/h1>"
+
+        // hide loading indicator if loading an image does not work
+        $('#chart-image').error(function(){ 
+        this.unblock();
+        });
+
+        function readParameters(){
+        // load all values from form fields (text, checkbox, select)
+        var params = $('form').values();
+        // overwrite dates
+        var startDate = $('#startDate').DatePickerGetDate(false);
+        var endDate = $('#endDate').DatePickerGetDate(false);
+        params.startDate = startDate;
+        params.endDate = endDate;
+        // add array of selected series names        
+        var selectedSeries = $.map($('#series-tree').dynatree('getSelectedNodes'), function(node) { return node.data.series; });
+        // there could be duplicates
+        var uniqueSeries = [];
+        $.each(selectedSeries, function(i,el){
+                if($.inArray(el, uniqueSeries) === -1) uniqueSeries.push(el);
+        });
+        params.selectedSeries = uniqueSeries;
+        return params;
+        }
+
+        function createLink(baseUrl, plantId, params){
+        var series = params.selectedSeries.join('|');
+        var dates = dygraphFunctions.formatDate(params.startDate) + '-' + dygraphFunctions.formatDate(params.endDate);
+        var v = params.visType;
+
+        var link = baseUrl + '/series-of/' + plantId + '/' + series + '/' + dates + '/' + v + '?width=' + params.width + '&height=' + params.height;
+        if(v == 'changepoints.png'){
+            link += '&rank='+params.rank
+                   +'&zero='+params.zero
+                   +'&negative='+params.negative
+                   +'&confidence='+params.confidence
+                   +'&max-level='+params.maxLevel
+                   +'&maintenance='+params.maintenance;
+        }else if (v == 'entropy.json'){
+            link += '&bins=' + params.bins
+                 + '&min-hist=' + params.minHist
+                 + '&max-hist=' + params.maxHist
+                 + '&days=' + params.days
+                 + '&skip-missing=' + params.skipMissing
+                 + '&sensor=' + params.sensor;
+        }
+		// XXX use static charts/data for now
+		switch(v){
+			case 'chart.png': link='MBS_SE_PV_files/img/static-chart.png'; break;
+			case 'heat-map.png': link='MBS_SE_PV_files/img/static-heat-map.png'; break;
+			case 'changepoints.png': link='MBS_SE_PV_files/img/static-changepoint.png'; break;
+			case 'discord.png': link='MBS_SE_PV_files/img/static-discord.png'; break;
+			case 'correlation.png': link='MBS_SE_PV_files/img/static-correlation.png'; break;
+			case 'dygraph.json': link='MBS_SE_PV_files/json/dygraph.json'; break;
+			case 'dygraph-ratios.json': link='MBS_SE_PV_files/json/dygraph-ratios.json'; break;
+			case 'entropy.json': link='MBS_SE_PV_files/json/entropy.json'; break;
+			default: link='#';
+		}
+		// /XXX
+        return link;
+        }
+        function findNearest(y, points){
+        var currentMin=1e9, currentName=points[0].name;
+        for(var i=0;i<points.length;i++){
+                var diff=Math.abs(y-points[i].canvasy);
+                if(diff<currentMin){
+                        currentMin = diff;
+                        currentName = points[i].name;
+                }
+        } 
+        return currentName;
+                
+        }
+        function createCBFunction(chartDiv,paramsOverwrite,detailChartId){
+        /*
+                 * XXX dirty hack: create a new chart div and return function that can
+                 * be used as a click handler in a dygraph really ugly, many things hard
+                 * coded
+                 */
+        chartDiv.append($("<div id='"+detailChartId+"'/>"));
+
+        return function(e, x, points){
+            var params=readParameters();
+            $.extend(params,paramsOverwrite);
+            
+            if(params.visType == 'dygraph-ratios.json'){
+                params.selectedSeries[1]=findNearest(e.offsetY, points);
+            }
+            var startDate=new Date(x);
+            var endDate=new Date(x);
+            startDate.addDays(-10);
+            endDate.addDays(3);                                                                  
+            params.startDate=startDate;
+            params.endDate=endDate;
+            
+            dygraphFunctions.createChart({id: detailChartId, 
+                link: createLink(baseUrl, plantId, params), 
+                params: params,
+                onError: function(){ chartDiv.unblock(); }},
+                function(settings, response){ 
+                    settings.clickCallback = createCBFunction(chartDiv,{visType: 'dygraph.json'},'dygraph-raw-series');
+                });                                                                  
+          };
+        }
+        // handler for the main button
+        $('#render-chart').click(
+                function(event) {
+                                event.preventDefault();
+                                var params = readParameters();
+                                // no series selected?
+                                if (params.selectedSeries.length == 0)
+                                        return false;
+
+                                var visType = params.visType;
+                                var link = createLink(baseUrl, plantId, params);
+								
+                                var chartDiv = $('#current-chart');
+                                chartDiv.empty();
+                                chartDiv.block();
+
+                                var selectionHash = params.selectedSeries.join('|').hashCode();
+                                var chartId = 'dygraph-chart-' + selectionHash;
+
+                                if (visType.slice(-4).toLowerCase() == '.png') { // static image
+                                        chartDiv.append($("<img id='chart-image' src=''/>"));                                        
+										// show chart, load dynamically
+                                        $('#chart-image').attr('src', link).load(function() {
+                                                chartDiv.unblock();
+                                        });
+                                } else {
+                                        if (visType == 'entropy.json') {
+                                                if(!params.sensor){
+                                                        chartDiv.append("<div class='alert'>Bitte wählen Sie aus, welcher Messwert mit den selektierten Werten verglichen werden soll.<\/div>");
+                                                        chartDiv.unblock();
+                                                        return false; 
+                                                }
+                                                chartDiv.append($("<div id='" + chartId + "'/>"));
+                                                
+                                                dygraphFunctions.createChart({
+                                                        id : chartId,
+                                                        link : link,
+                                                        params : params,
+                                                        onError : function() {
+                                                                chartDiv.unblock();
+                                                        }
+                                                }, function(settings, response) {
+                                                        chartDiv.unblock();
+                                                        settings.stepPlot = true;
+                                                        settings.stackedGraph= true;
+                                                        settings.clickCallback = createCBFunction(chartDiv, {visType: 'dygraph-ratios.json', selectedSeries: [response.numerator]}, 'dygraph-chart-entropy-ratios'+selectionHash);
+                                                });
+                                        } else if (visType.slice(-5) == '.json') {
+                                                chartDiv.append($("<div id='" + chartId + "'/>"));
+                                                dygraphFunctions.createChart({
+                                                        id : chartId,
+                                                        link : link,
+                                                        params : params,
+                                                        onError : function() {
+                                                                chartDiv.unblock();
+                                                        }
+                                                }, function(settings, response) {
+                                                        chartDiv.unblock();
+                                                });
+                                        }
+                                }
+                                return false;
+                        });
+
+        }( window.Charting = window.Charting || {}, jQuery, "", "PV-Anlage"));
+
+
+
+
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        $('#visType').change(function(){
+                            var params=$('#changepoint-parameter'); 
+                            if('changepoints.png'==$(this).val()){ params.slideDown();} else{ params.slideUp();}})
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        $('#visType').change(function(){
+                            var params=$('#entropy-parameter');
+                            var val=$(this).val(); 
+                            if(val.slice(0,7)=='entropy'){ params.slideDown();} else{ params.slideUp();}})
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        $('#sensor').typeahead({
+                             name: 'sensor-numerator-PV-Anlage',
+                           engine: Hogan,
+                         prefetch: 'MBS_SE_PV_files/json/names.json',
+                            limit: 10,
+                         template: '<p>{{component}}/{{name}}<\/p><p>({{type}})<\/p>'})
+        //]]>
+        </script>
+      </div>
+      <div class="span2">
+        <p>
+          © EUMONIS-Konsortium 2013
+        </p>
+      </div>
+      <div class="span8">
+        <p>
+          Das Projekt "EUMONIS" wird gefördert durch das Bundesministerium für
+          Bildung und Forschung (BMBF) - Förderkennzeichen 01IS10033, Laufzeit
+          01.07.2010 bis 30.06.2014.
+        </p>
+      </div>
+      <div class="span2">
+        <a href="http://www.bmbf.de/"><img alt=
+        "gefördert durch das Bundesministerium für Bildung und Forschung"
+        src="MBS_SE_PV_files/img/bmbf-ohne-rand.gif" width="150px"></a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+body {
+	padding-top: 60px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+
+.hero-unit {
+	background-color: #ffc40d;
+}
+
+.noNumber span{
+	display: none;
+}
+
+.TKNumberField input{
+	height: 12px;
+	width: 50px;
+}
+
+.legend table{
+	width: 165px;
+}
+
+.legendLabel{
+	padding: 3px;
+}
+
+.legendColorBox{
+	padding: 2px;
+}
+
+.tableCustom td{
+	padding: 3px;
+}
+
+.fakeCenter{
+	margin-left: 35%;
+}
+
+.TKAdjustableNumberCustom{
+	color: #404040;
+	border: none;
+}
+
+.TKAdjustableNumberCustom:hover{
+	color: #808080;
+	border-bottom: 1px solid #4466FF;
+}
+
+.hero-unit-custom{
+	padding: 5px;
+	padding-left: 15px;
+}
+
+.hero-unit-custom h1{
+	font-size: 40px;
+	margin-bottom: 1px;
+}
+
+.hero-unit-custom p{
+	margin-bottom: 1px;
+}

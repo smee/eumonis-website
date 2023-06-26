@@ -1,0 +1,166 @@
+@CHARSET "ISO-8859-1";
+.miniTextfield {
+	width: 60px;
+	margin-left: 0px;
+}
+#current-chart {
+    min-height: 500px;
+}
+#current-chart #interactive-map {
+	height: 800px;
+}
+
+#current-chart #chart_container {
+        position: relative;
+        float:left;
+}
+#current-chart #chart {
+        position: inline-block;
+        margin-left: 40px;
+}
+#current-chart #y_axis {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+}
+#current-chart #legend {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 0 0 10px;
+}
+
+.glasspane {
+	width:200px;
+	height:200px;
+}
+
+.alignRight { text-align: right; }
+
+form.form-stacked {
+	padding-left: 0px;
+}
+div.doNotFloat label{
+	float:none;
+}
+.loading-bg {
+    background: url('../img/loading.gif') no-repeat;
+    background-position: center;
+    background-color: #ddd;
+}
+/* datatables adjustments to work better with bootstrap 2.0 */
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+    cursor: pointer;
+    *cursor: hand;
+}
+ 
+table.table thead .sorting { background: url('../img/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right; }
+ 
+table.table thead .sorting_asc_disabled { background: url('../img/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('../img/sort_desc_disabled.png') no-repeat center right; }
+
+div.dataTables_length label {
+    float: left;
+    text-align: left;
+}
+ 
+ 
+div.dataTables_filter label {
+    float: right;
+}
+ 
+div.dataTables_info {
+    padding-top: 8px;
+}
+ 
+div.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+ 
+table {
+    margin-bottom: 6px !important;
+    clear: both;
+}
+/* calendar visualization */
+#calendar {
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
+
+.day {
+  fill: #fff;
+  stroke: #ccc;
+}
+
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+#changepoint-parameter {
+	display: none;
+}
+#entropy-parameter {
+	display: none;
+}
+
+.dygraph-legend span {
+	font-size: small;
+}
+.dygraph-legend .highlight {
+    font-weight: bold;
+    border: 1px solid;
+}
+
+/* widget box */
+.widget {
+    background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+  padding: 10px;
+  margin: 10px;
+  display: inline-block;
+}
+.widget .background {
+  fill: #eee;
+}
+
+.widget line {
+  stroke: #fff;
+}
+
+.widget text.active {
+  fill: red;
+  font-weight: bold;
+  visibility: inherit;
+  fill-opacity: 1;
+}
+.widget .cellLabel {
+  font-size:smaller;
+  /*visibility: hidden;*/
+}
+.widget .matrixlabel {
+  cursor: pointer;
+}
+.widget .cell {
+  cursor: pointer;
+  fill-opacity: 0.5;
+}

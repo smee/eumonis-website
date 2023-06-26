@@ -1,0 +1,23 @@
+.header{
+
+}
+
+.input{
+
+}
+
+.left{
+	float: left;
+	width: 600px;
+}
+
+.right{
+	float: right;
+	width: 300px;
+}
+
+#chart{
+	border-width: 2px;
+	border-style: solid;
+	border-color: #CCCCCC;
+}
